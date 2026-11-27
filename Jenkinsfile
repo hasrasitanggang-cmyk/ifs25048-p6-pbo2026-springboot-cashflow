@@ -343,12 +343,6 @@ pipeline {
         // DEPLOY APPLICATION
         // ============================================================
         stage('Deploy Application') {
-            environment {
-                URL_PROGRESS = 'https://delcom.org/api/dws/websites/progress'
-                URL_REDEPLOY = 'https://delcom.org/api/dws/websites/redeploy'
-                WEBSITE_ID = '843a8b26-6adb-49e8-aaa7-e94d7b89d99e'
-                DEPLOY_TOKEN = credentials('delcom-deploy-ifs25048-p6')
-            }
             agent {
                 docker {
                     image 'curlimages/curl:8.15.0'
@@ -376,7 +370,6 @@ pipeline {
 
                     def redeployResponse = sh(
                         script: '''
-                            set +x
                             set -e
 
                             curl -sS --fail-with-body \
@@ -393,7 +386,7 @@ pipeline {
                     ).trim()
 
                     echo "Redeploy Response:"
-                    echo "Redeploy request completed."
+                    echo redeployResponse
 
                     // ==================================================
                     // 2. POLLING DEPLOYMENT PROGRESS
@@ -425,7 +418,6 @@ pipeline {
 
                         def progressResponse = sh(
                             script: '''
-                                set +x
                                 set -e
 
                                 curl -sS --fail-with-body \
@@ -440,7 +432,7 @@ pipeline {
                         ).trim()
 
                         echo "Progress Response:"
-                        echo "Progress response received."
+                        echo progressResponse
 
                         // ==================================================
                         // PARSE JSON
