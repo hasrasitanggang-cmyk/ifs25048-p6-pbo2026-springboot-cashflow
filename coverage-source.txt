@@ -1,0 +1,2888 @@
+﻿===== POM.XML =====
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>4.1.2</version>
+        <relativePath/>
+    </parent>
+    <groupId>org.delcom</groupId>
+    <artifactId>ifs25048-p6-pbo2026-springboot-cashflow</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>ifs25048-p6-pbo2026-springboot-cashflow</name>
+    <description>ifs25048-p6-pbo2026-springboot-cashflow</description>
+    <url/>
+    <licenses>
+        <license/>
+    </licenses>
+    <developers>
+        <developer/>
+    </developers>
+    <scm>
+        <connection/>
+        <developerConnection/>
+        <tag/>
+        <url/>
+    </scm>
+    <properties>
+        <java.version>25</java.version>
+        <vaadin.version>25.3.4</vaadin.version>
+        <jacoco.version>0.8.14</jacoco.version>
+    </properties>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.vaadin</groupId>
+                <artifactId>vaadin-bom</artifactId>
+                <version>${vaadin.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-dev</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.mvysny.kaributesting</groupId>
+            <artifactId>karibu-testing-v24</artifactId>
+            <version>2.7.3</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <!-- Fork wajib agar Spring Boot DevTools bisa restart otomatis. -->
+                    <fork>true</fork>
+                    <excludeDevtools>true</excludeDevtools>
+                    <excludes>
+                        <exclude>
+                            <groupId>com.vaadin</groupId>
+                            <artifactId>vaadin-dev</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco.version}</version>
+                <executions>
+                    <execution>
+                        <id>prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                        <configuration>
+                            <excludes>
+                                <exclude>**/framework/view/**</exclude>
+                                <exclude>**/framework/auth/**</exclude>
+                            </excludes>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                        <configuration>
+                            <excludes>
+                                <exclude>**/framework/view/**</exclude>
+                                <exclude>**/framework/auth/**</exclude>
+                            </excludes>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>jacoco-check</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                        <configuration>
+                            <excludes>
+                                <exclude>**/framework/view/**</exclude>
+                                <exclude>**/framework/auth/**</exclude>
+                            </excludes>
+                            <rules>
+                                <rule>
+                                    <element>BUNDLE</element>
+                                    <limits>
+                                        <limit>
+                                            <counter>INSTRUCTION</counter>
+                                            <value>COVEREDRATIO</value>
+                                            <minimum>1.0</minimum>
+                                        </limit>
+                                        <limit>
+                                            <counter>BRANCH</counter>
+                                            <value>COVEREDRATIO</value>
+                                            <minimum>1.0</minimum>
+                                        </limit>
+                                        <limit>
+                                            <counter>LINE</counter>
+                                            <value>COVEREDRATIO</value>
+                                            <minimum>1.0</minimum>
+                                        </limit>
+                                        <limit>
+                                            <counter>METHOD</counter>
+                                            <value>COVEREDRATIO</value>
+                                            <minimum>1.0</minimum>
+                                        </limit>
+                                        <limit>
+                                            <counter>CLASS</counter>
+                                            <value>COVEREDRATIO</value>
+                                            <minimum>1.0</minimum>
+                                        </limit>
+                                    </limits>
+                                </rule>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <argLine>@{argLine} -XX:+EnableDynamicAgentLoading</argLine>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>production</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.vaadin</groupId>
+                        <artifactId>vaadin-maven-plugin</artifactId>
+                        <version>${vaadin.version}</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>build-frontend</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+</project>
+
+
+===== FRAMEWORK SOURCE =====
+
+===== C:\Users\ASUS\Documents\ifs25048-p6-pbo2026-springboot-cashflow\src\main\java\org\delcom\ifs25048springbootcashflow\framework\auth\AuthSession.java =====
+package org.delcom.ifs25048springbootcashflow.framework.auth;
+
+
+import com.vaadin.flow.server.VaadinResponse;
+import com.vaadin.flow.server.VaadinService;
+import com.vaadin.flow.server.VaadinSession;
+import com.vaadin.flow.server.WrappedSession;
+import jakarta.servlet.http.Cookie;
+import org.delcom.ifs25048springbootcashflow.domain.entity.User;
+import org.delcom.ifs25048springbootcashflow.domain.repository.IUserRepository;
+
+import java.util.Optional;
+
+/**
+ * Menyimpan sesi login di VaadinSession, HTTP session, dan cookie
+ * agar tetap ada setelah refresh browser.
+ */
+public final class AuthSession {
+    private static final String USER_KEY = "currentUser";
+    private static final String USER_ID_KEY = "currentUserId";
+    private static final String LOGGED_OUT_KEY = "authLoggedOut";
+    private static final String COOKIE_NAME = "cashflow_uid";
+    private static final int COOKIE_MAX_AGE_SECONDS = 60 * 60 * 24 * 7;
+
+    private AuthSession() {
+    }
+
+    public static void login(User user) {
+        VaadinSession session = VaadinSession.getCurrent();
+        if (session == null) {
+            return;
+        }
+        session.setAttribute(LOGGED_OUT_KEY, Boolean.FALSE);
+        session.setAttribute(USER_KEY, user);
+        session.setAttribute(USER_ID_KEY, user.getId());
+
+        WrappedSession httpSession = session.getSession();
+        if (httpSession != null) {
+            httpSession.setAttribute(USER_ID_KEY, user.getId());
+            httpSession.setAttribute(LOGGED_OUT_KEY, Boolean.FALSE);
+        }
+        writeUserCookie(user.getId());
+    }
+
+    public static void logout() {
+        VaadinSession session = VaadinSession.getCurrent();
+        if (session != null) {
+            session.setAttribute(USER_KEY, null);
+            session.setAttribute(USER_ID_KEY, null);
+            session.setAttribute(LOGGED_OUT_KEY, Boolean.TRUE);
+            WrappedSession httpSession = session.getSession();
+            if (httpSession != null) {
+                httpSession.setAttribute(USER_ID_KEY, null);
+                httpSession.setAttribute(LOGGED_OUT_KEY, Boolean.TRUE);
+            }
+        }
+        clearUserCookie();
+    }
+
+    public static Optional<User> currentUser() {
+        VaadinSession session = VaadinSession.getCurrent();
+        if (session == null || isLoggedOut(session)) {
+            return Optional.empty();
+        }
+        Object value = session.getAttribute(USER_KEY);
+        if (value instanceof User user) {
+            return Optional.of(user);
+        }
+        return Optional.empty();
+    }
+
+    /**
+     * Mengambil user login; jika hilang karena refresh, pulihkan dari session/cookie + database.
+     */
+    public static Optional<User> currentUser(IUserRepository userRepository) {
+        VaadinSession session = VaadinSession.getCurrent();
+        if (session != null && isLoggedOut(session)) {
+            return Optional.empty();
+        }
+        Optional<User> existing = currentUser();
+        if (existing.isPresent()) {
+            return existing;
+        }
+        return restore(userRepository);
+    }
+
+    public static void refresh(User user) {
+        login(user);
+    }
+
+    private static boolean isLoggedOut(VaadinSession session) {
+        Object flag = session.getAttribute(LOGGED_OUT_KEY);
+        if (Boolean.TRUE.equals(flag)) {
+            return true;
+        }
+        WrappedSession httpSession = session.getSession();
+        if (httpSession != null) {
+            return Boolean.TRUE.equals(httpSession.getAttribute(LOGGED_OUT_KEY));
+        }
+        return false;
+    }
+
+    private static Optional<User> restore(IUserRepository userRepository) {
+        VaadinSession session = VaadinSession.getCurrent();
+        if (session != null && isLoggedOut(session)) {
+            return Optional.empty();
+        }
+        Integer userId = readStoredUserId();
+        if (userId == null) {
+            return Optional.empty();
+        }
+        Optional<User> found = userRepository.findById(userId);
+        found.ifPresent(AuthSession::login);
+        if (found.isEmpty()) {
+            clearUserCookie();
+        }
+        return found;
+    }
+
+    private static Integer readStoredUserId() {
+        VaadinSession session = VaadinSession.getCurrent();
+        if (session != null) {
+            if (isLoggedOut(session)) {
+                return null;
+            }
+            Object fromVaadin = session.getAttribute(USER_ID_KEY);
+            if (fromVaadin instanceof Integer id) {
+                return id;
+            }
+            WrappedSession httpSession = session.getSession();
+            if (httpSession != null) {
+                Object fromHttp = httpSession.getAttribute(USER_ID_KEY);
+                if (fromHttp instanceof Integer id) {
+                    return id;
+                }
+            }
+        }
+        return null;
+    }
+
+    private static void writeUserCookie(int userId) {
+        VaadinResponse response = VaadinService.getCurrentResponse();
+        if (response == null) {
+            return;
+        }
+        Cookie cookie = new Cookie(COOKIE_NAME, "1");
+        cookie.setPath("/");
+        cookie.setHttpOnly(true);
+        cookie.setMaxAge(COOKIE_MAX_AGE_SECONDS);
+        response.addCookie(cookie);
+    }
+
+    private static void clearUserCookie() {
+        VaadinResponse response = VaadinService.getCurrentResponse();
+        if (response == null) {
+            return;
+        }
+        Cookie cookie = new Cookie(COOKIE_NAME, "");
+        cookie.setPath("/");
+        cookie.setHttpOnly(true);
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+    }
+}
+
+===== C:\Users\ASUS\Documents\ifs25048-p6-pbo2026-springboot-cashflow\src\main\java\org\delcom\ifs25048springbootcashflow\framework\view\FinanceView.java =====
+package org.delcom.ifs25048springbootcashflow.framework.view;
+
+import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.dialog.Dialog;
+import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.html.Paragraph;
+import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.notification.NotificationVariant;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.progressbar.ProgressBar;
+import com.vaadin.flow.component.select.Select;
+import com.vaadin.flow.component.textfield.TextArea;
+import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.component.upload.Upload;
+import com.vaadin.flow.router.BeforeEnterEvent;
+import com.vaadin.flow.router.BeforeEnterObserver;
+import com.vaadin.flow.router.PageTitle;
+import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.streams.UploadHandler;
+
+import org.delcom.ifs25048springbootcashflow.adapter.presenter.FinancePresenter;
+import org.delcom.ifs25048springbootcashflow.adapter.storage.FileStorage;
+import org.delcom.ifs25048springbootcashflow.domain.entity.*;
+import org.delcom.ifs25048springbootcashflow.domain.repository.IUserRepository;
+import org.delcom.ifs25048springbootcashflow.framework.auth.AuthSession;
+import org.delcom.ifs25048springbootcashflow.usecase.FinanceUseCase;
+import org.delcom.ifs25048springbootcashflow.usecase.FinanceAiUseCase;
+
+import java.io.ByteArrayInputStream;
+import java.util.List;
+import java.util.Locale;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
+import java.util.concurrent.atomic.AtomicReference;
+
+@Route(value = "", layout = MainLayout.class)
+@PageTitle("Cashflow")
+public class FinanceView extends VerticalLayout
+        implements BeforeEnterObserver {
+
+    private final FinanceUseCase financeUseCase;
+    private final FinanceAiUseCase financeAiUseCase;
+    private final FinancePresenter presenter;
+    private final FileStorage fileStorage;
+    private final IUserRepository userRepository;
+
+    private final Grid<Transaction> grid =
+            new Grid<>(Transaction.class, false);
+
+    private final TextField search = new TextField();
+
+    private final Select<TransactionTypeFilter> filter =
+            new Select<>();
+
+    private final Select<SortOption> sort =
+            new Select<>();
+
+    private final Span totalCount = new Span("0");
+    private final Span totalIncome = new Span("Rp 0.00");
+    private final Span totalExpense = new Span("Rp 0.00");
+    private final Span balance = new Span("Rp 0.00");
+
+    private final Span status = new Span();
+
+    private record PendingImage(
+            String name,
+            byte[] data
+    ) {}
+
+    public FinanceView(
+            FinanceUseCase financeUseCase,
+            FinanceAiUseCase financeAiUseCase,
+            FinancePresenter presenter,
+            FileStorage fileStorage,
+            IUserRepository userRepository
+    ) {
+        this.financeUseCase = financeUseCase;
+        this.financeAiUseCase = financeAiUseCase;
+        this.presenter = presenter;
+        this.fileStorage = fileStorage;
+        this.userRepository = userRepository;
+
+        setSizeFull();
+        setPadding(true);
+        setSpacing(false);
+
+        getStyle().set("background", "#F3F4F6");
+
+        configureGrid();
+
+        H1 title = new H1("Catatan Keuangan Saya");
+
+        title.getStyle()
+                .set("margin", "0")
+                .set("font-size", "1.5rem");
+
+        Div card = PageCard.wrap(
+                title,
+                createSummary(),
+                createToolbar(),
+                status,
+                grid
+        );
+
+        add(card);
+        expand(card);
+    }
+
+    @Override
+    public void beforeEnter(BeforeEnterEvent event) {
+
+        if (AuthSession.currentUser(userRepository)
+                .isEmpty()) {
+
+            event.forwardTo(LoginView.class);
+            return;
+        }
+
+        refreshAll();
+    }
+
+    private int currentUserId() {
+
+        return AuthSession.currentUser()
+                .orElseThrow()
+                .getId();
+    }
+
+    private HorizontalLayout createSummary() {
+
+        HorizontalLayout layout = new HorizontalLayout(
+                summaryCard(
+                    "Total Transaksi",
+                    totalCount,
+                    "#DBEAFE",
+                    "#2563EB"
+                ),
+                summaryCard(
+                    "Total Pemasukan",
+                    totalIncome,
+                    "#DCFCE7",
+                    "#16A34A"
+                ),
+                summaryCard(
+                    "Total Pengeluaran",
+                    totalExpense,
+                    "#FEE2E2",
+                    "#DC2626"
+                ),
+                summaryCard(
+                    "Saldo",
+                    balance,
+                    "#FEF3C7",
+                    "#D97706"
+                )
+        );
+
+        layout.setWidthFull();
+
+        layout.getStyle()
+                .set("flex-wrap", "wrap");
+
+        return layout;
+    }
+
+    private Div summaryCard(
+            String label,
+            Span value,
+            String background,
+            String color
+    ) {
+
+        Span caption = new Span(label);
+
+        caption.getStyle()
+                .set("display", "block")
+                .set("font-size", "0.85rem")
+                .set("color", color);
+
+        value.getStyle()
+                .set("display", "block")
+                .set("font-size", "1.3rem")
+                .set("font-weight", "700")
+                .set("color", color);
+
+        Div card = new Div(caption, value);
+
+        card.getStyle()
+                .set("flex", "1")
+                .set("min-width", "160px")
+                .set("background", background)
+                .set("border", "1px solid " + color)
+                .set("border-left", "4px solid " + color)
+                .set("border-radius", "10px")
+                .set("padding", "12px");
+
+        return card;
+    }
+
+    private HorizontalLayout createToolbar() {
+
+        search.setPlaceholder("Cari keterangan...");
+        search.setClearButtonVisible(true);
+
+        filter.setItems(TransactionTypeFilter.values());
+        filter.setItemLabelGenerator(
+                TransactionTypeFilter::label
+        );
+        filter.setValue(TransactionTypeFilter.ALL);
+
+        sort.setItems(SortOption.values());
+        sort.setItemLabelGenerator(SortOption::label);
+        sort.setValue(SortOption.NEWEST_FIRST);
+
+        Button searchButton = new Button(
+                "Cari",
+                event -> refreshAll()
+        );
+
+        Button reload = new Button(
+                "Muat Ulang",
+                event -> {
+                    search.clear();
+                    filter.setValue(TransactionTypeFilter.ALL);
+                    sort.setValue(SortOption.NEWEST_FIRST);
+                    refreshAll();
+                }
+        );
+
+        Button generate = new Button(
+                "Generate AI",
+                event -> openAiDialog()
+        );
+
+        generate.addThemeVariants(
+                ButtonVariant.LUMO_SUCCESS
+        );
+
+        Button income = new Button(
+                "+ Pemasukan",
+                event -> openAddDialog(TransactionType.INCOME)
+        );
+
+        income.addThemeVariants(
+                ButtonVariant.LUMO_PRIMARY,
+                ButtonVariant.LUMO_SUCCESS
+        );
+
+        Button expense = new Button(
+                "+ Pengeluaran",
+                event -> openAddDialog(TransactionType.EXPENSE)
+        );
+
+        expense.addThemeVariants(
+                ButtonVariant.LUMO_PRIMARY,
+                ButtonVariant.LUMO_ERROR
+        );
+
+        filter.addValueChangeListener(event -> refreshAll());
+        sort.addValueChangeListener(event -> refreshAll());
+
+        for (Button button : List.of(
+                searchButton, reload, generate, income, expense
+        )) {
+            button.getStyle().set("cursor", "pointer");
+        }
+
+        HorizontalLayout toolbar = new HorizontalLayout(
+                search,
+                filter,
+                sort,
+                searchButton,
+                reload,
+                generate,
+                income,
+                expense
+        );
+
+        toolbar.setWidthFull();
+
+        toolbar.getStyle()
+                .set("flex-wrap", "wrap")
+                .set("align-items", "center");
+
+        return toolbar;
+    }
+
+    private void configureGrid() {
+
+        grid.addComponentColumn(transaction -> {
+
+            String path = transaction.getProofPath();
+
+            if (path == null || path.isBlank()) {
+                return new Span("-");
+            }
+
+            return ImagePreviewDialog.clickableThumbnail(
+                    "/uploads/" + path,
+                    "Bukti transaksi",
+                    "48px"
+            );
+
+        }).setHeader("Bukti").setAutoWidth(true);
+
+        grid.addColumn(Transaction::getId)
+                .setHeader("ID")
+                .setSortable(true)
+                .setAutoWidth(true);
+
+        grid.addColumn(Transaction::getDescription)
+                .setHeader("Keterangan")
+                .setSortable(true)
+                .setFlexGrow(2);
+
+        grid.addColumn(transaction ->
+                presenter.formatAmount(transaction.getAmount())
+        )
+                .setHeader("Jumlah")
+                .setComparator(Transaction::getAmount)
+                .setSortable(true)
+                .setAutoWidth(true);
+
+        grid.addComponentColumn(transaction -> {
+
+            Span badge = new Span(
+                    transaction.getType().label()
+            );
+
+            badge.getStyle()
+                    .set("color",
+                            transaction.getType()
+                                    == TransactionType.INCOME
+                                    ? "#15803D"
+                                    : "#DC2626")
+                    .set("font-weight", "600");
+
+            return badge;
+
+        }).setHeader("Tipe").setAutoWidth(true);
+
+        grid.addColumn(transaction ->
+                presenter.formatDateTime(
+                        transaction.getCreatedAt()
+                )
+        )
+                .setHeader("Waktu")
+                .setComparator(Transaction::getCreatedAt)
+                .setSortable(true)
+                .setAutoWidth(true);
+
+        grid.addComponentColumn(transaction -> {
+
+            Button delete = new Button(
+                    "Hapus",
+                    event -> openDeleteDialog(transaction)
+            );
+
+            delete.addThemeVariants(
+                    ButtonVariant.LUMO_ERROR,
+                    ButtonVariant.LUMO_TERTIARY
+            );
+
+            delete.getStyle().set("cursor", "pointer");
+
+            return delete;
+
+        }).setHeader("Tindakan").setAutoWidth(true);
+
+        grid.setSizeFull();
+
+        GridStyles.apply(grid);
+    }
+
+    private void refreshAll() {
+
+        if (AuthSession.currentUser().isEmpty()) {
+            return;
+        }
+
+        int userId = currentUserId();
+
+        List<Transaction> transactions =
+                financeUseCase.listTransactions(
+                        userId,
+                        search.getValue(),
+                        filter.getValue(),
+                        sort.getValue()
+                );
+
+        grid.setItems(transactions);
+
+        totalCount.setText(
+                String.valueOf(
+                        financeUseCase.getTransactionCount(userId)
+                )
+        );
+
+        totalIncome.setText(
+                presenter.formatAmount(
+                        financeUseCase.getTotalIncome(userId)
+                )
+        );
+
+        totalExpense.setText(
+                presenter.formatAmount(
+                        financeUseCase.getTotalExpense(userId)
+                )
+        );
+
+        long currentBalance =
+                financeUseCase.getBalance(userId);
+
+        balance.setText(
+                presenter.formatAmount(currentBalance)
+        );
+
+        balance.getStyle().set(
+                "color",
+                currentBalance >= 0
+                    ? "#15803D"
+                    : "#DC2626"
+        );
+
+        status.setText(
+                transactions.isEmpty()
+                    ? "Data transaksi belum tersedia."
+                    : "Menampilkan " + transactions.size()
+                        + " transaksi"
+        );
+    }
+
+    private void openAddDialog(TransactionType type) {
+
+        Dialog dialog = new Dialog();
+
+        TextArea description =
+                new TextArea("Keterangan");
+
+        TextField amount =
+                new TextField("Jumlah (Rp)");
+
+        description.setWidthFull();
+        amount.setWidthFull();
+
+        description.setRequiredIndicatorVisible(true);
+        amount.setRequiredIndicatorVisible(true);
+
+        amount.setPlaceholder("Contoh: 25000");
+
+        AtomicReference<PendingImage> pending =
+                new AtomicReference<>();
+
+        Upload upload = new Upload(
+                UploadHandler.inMemory((metadata, data) -> {
+
+                    pending.set(new PendingImage(
+                            metadata.fileName(),
+                            data
+                    ));
+                })
+        );
+
+        upload.setAcceptedMimeTypes(
+                "image/png",
+                "image/jpeg"
+        );
+
+        upload.setAcceptedFileExtensions(
+                ".png", ".jpg", ".jpeg"
+        );
+
+        upload.setMaxFiles(1);
+        upload.setMaxFileSize(5 * 1024 * 1024);
+
+        upload.addFileRemovedListener(event ->
+                pending.set(null)
+        );
+
+        ProgressBar loading = new ProgressBar();
+        loading.setIndeterminate(true);
+        loading.setVisible(false);
+
+        Button cancel = new Button(
+                "Batal",
+                event -> dialog.close()
+        );
+
+        Button save = new Button("Simpan");
+
+        save.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+
+        save.addClickListener(event -> {
+
+            loading.setVisible(true);
+            save.setEnabled(false);
+
+            try {
+
+                long value;
+
+                try {
+
+                    value = Long.parseLong(
+                            amount.getValue().trim()
+                    );
+
+                } catch (NumberFormatException ex) {
+
+                    throw new IllegalArgumentException(
+                            "Jumlah harus berupa angka bulat"
+                    );
+                }
+
+                if (value <= 0) {
+                    throw new IllegalArgumentException(
+                            "Jumlah harus lebih besar dari nol"
+                    );
+                }
+
+                if (description.getValue().isBlank()) {
+                    throw new IllegalArgumentException(
+                            "Keterangan tidak boleh kosong"
+                    );
+                }
+
+                String proofPath = null;
+
+                PendingImage image = pending.get();
+
+                if (image != null) {
+
+                    String name = image.name()
+                            .toLowerCase(Locale.ROOT);
+
+                    if (!(name.endsWith(".png")
+                            || name.endsWith(".jpg")
+                            || name.endsWith(".jpeg"))) {
+
+                        throw new IllegalArgumentException(
+                                "Format gambar tidak didukung"
+                        );
+                    }
+
+                    if (image.data().length > 5 * 1024 * 1024) {
+
+                        throw new IllegalArgumentException(
+                                "Ukuran gambar maksimal 5 MB"
+                        );
+                    }
+
+                    if (javax.imageio.ImageIO.read(
+                            new ByteArrayInputStream(
+                                    image.data()
+                            )
+                    ) == null) {
+
+                        throw new IllegalArgumentException(
+                                "File bukan gambar yang valid"
+                        );
+                    }
+
+                    proofPath = fileStorage.store(
+                            "proofs",
+                            image.name(),
+                            new ByteArrayInputStream(
+                                    image.data()
+                            )
+                    );
+                }
+
+                Transaction saved =
+                        financeUseCase.addTransaction(
+                                currentUserId(),
+                                description.getValue(),
+                                value,
+                                type,
+                                proofPath
+                        );
+
+                success(presenter.successAdd(saved));
+
+                dialog.close();
+
+                refreshAll();
+
+            } catch (Exception ex) {
+
+                error(ex.getMessage());
+
+            } finally {
+
+                loading.setVisible(false);
+                save.setEnabled(true);
+            }
+        });
+
+        VerticalLayout body = new VerticalLayout(
+                description,
+                amount,
+                new Span("Bukti transaksi (opsional)"),
+                upload,
+                loading
+        );
+
+        setupDialog(
+                dialog,
+                "Tambah " + type.label(),
+                body,
+                cancel,
+                save
+        );
+
+        dialog.open();
+    }
+
+    private void openDeleteDialog(Transaction transaction) {
+
+        Dialog dialog = new Dialog();
+
+        Paragraph message = new Paragraph(
+                "Yakin ingin menghapus transaksi "
+                        + presenter.formatTransaction(transaction)
+                        + "?"
+        );
+
+        Button cancel = new Button(
+                "Batal",
+                event -> dialog.close()
+        );
+
+        Button delete = new Button("Hapus");
+
+        delete.addThemeVariants(
+                ButtonVariant.LUMO_PRIMARY,
+                ButtonVariant.LUMO_ERROR
+        );
+
+        delete.addClickListener(event -> {
+
+            delete.setEnabled(false);
+
+            try {
+
+                financeUseCase.removeTransactionForUser(
+                        currentUserId(),
+                        transaction.getId()
+                );
+
+                success(
+                        presenter.successDelete(
+                                transaction.getId()
+                        )
+                );
+
+                dialog.close();
+
+                refreshAll();
+
+            } catch (Exception ex) {
+
+                error(ex.getMessage());
+
+                delete.setEnabled(true);
+            }
+        });
+
+        setupDialog(
+                dialog,
+                "Konfirmasi Penghapusan",
+                message,
+                cancel,
+                delete
+        );
+
+        dialog.open();
+    }
+
+    private void openAiDialog() {
+
+        Dialog dialog = new Dialog();
+
+        TextArea prompt =
+                new TextArea("Catatan Keuangan");
+
+        prompt.setWidthFull();
+
+        prompt.setPlaceholder(
+                "Contoh: menerima uang bulanan Rp1000000, "
+                + "membeli makan siang Rp25000"
+        );
+
+        ProgressBar loading = new ProgressBar();
+
+        loading.setIndeterminate(true);
+        loading.setVisible(false);
+        loading.setWidthFull();
+
+        Grid<AiGeneratedTransaction> preview =
+                new Grid<>(AiGeneratedTransaction.class, false);
+
+        preview.addColumn(
+                AiGeneratedTransaction::description
+        ).setHeader("Keterangan");
+
+        preview.addColumn(item ->
+                presenter.formatAmount(item.amount())
+        ).setHeader("Jumlah");
+
+        preview.addColumn(item ->
+                item.type().label()
+        ).setHeader("Tipe");
+
+        preview.setWidthFull();
+        preview.setHeight("260px");
+        preview.setVisible(false);
+
+        GridStyles.apply(preview);
+
+        AtomicReference<List<AiGeneratedTransaction>> generated =
+                new AtomicReference<>(List.of());
+
+        Button generate = new Button("Proses AI");
+
+        Button cancel = new Button(
+                "Batal",
+                event -> dialog.close()
+        );
+
+        Button apply = new Button("Tambahkan ke Catatan");
+
+        apply.setEnabled(false);
+
+        apply.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+
+        generate.addClickListener(event -> {
+
+            String text = prompt.getValue().trim();
+
+            if (text.isBlank()) {
+
+                error("Prompt tidak boleh kosong");
+                return;
+            }
+
+            generated.set(List.of());
+
+            preview.setItems(List.of());
+            preview.setVisible(false);
+
+            loading.setVisible(true);
+
+            generate.setEnabled(false);
+            apply.setEnabled(false);
+            cancel.setEnabled(false);
+            prompt.setReadOnly(true);
+
+            UI ui = UI.getCurrent();
+
+            int previousPollInterval = ui.getPollInterval();
+
+            ui.setPollInterval(500);
+
+            CompletableFuture.supplyAsync(() -> {
+
+                try {
+
+                    return financeAiUseCase
+                            .generateTransactions(text);
+
+                } catch (Exception ex) {
+
+                    throw new CompletionException(ex);
+                }
+
+            }).whenComplete((items, failure) -> {
+
+                if (!ui.isAttached()) {
+                    return;
+                }
+
+                ui.access(() -> {
+
+                    try {
+
+                        if (!dialog.isOpened()) {
+                            return;
+                        }
+
+                        if (failure != null) {
+
+                            Throwable cause =
+                                    failure.getCause() == null
+                                        ? failure
+                                        : failure.getCause();
+
+                            error(cause.getMessage());
+
+                            return;
+                        }
+
+                        generated.set(List.copyOf(items));
+
+                        preview.setItems(items);
+                        preview.setVisible(true);
+
+                        apply.setEnabled(!items.isEmpty());
+
+                        success(
+                                "AI menghasilkan "
+                                + items.size()
+                                + " transaksi. Periksa preview."
+                        );
+
+                    } finally {
+
+                        loading.setVisible(false);
+
+                        generate.setEnabled(true);
+                        cancel.setEnabled(true);
+                        prompt.setReadOnly(false);
+
+                        ui.setPollInterval(previousPollInterval);
+                    }
+                });
+            });
+        });
+
+        apply.addClickListener(event -> {
+
+            List<AiGeneratedTransaction> items =
+                    generated.get();
+
+            if (items.isEmpty()) {
+
+                error("Belum ada hasil AI");
+                return;
+            }
+
+            apply.setEnabled(false);
+            generate.setEnabled(false);
+            cancel.setEnabled(false);
+
+            try {
+
+                financeAiUseCase.saveGeneratedTransactions(
+                        currentUserId(),
+                        items
+                );
+
+                success(
+                        presenter.successGenerate(items.size())
+                );
+
+                dialog.close();
+
+                refreshAll();
+
+            } catch (Exception ex) {
+
+                error(
+                    "Penyimpanan gagal. Periksa daftar transaksi "
+                    + "sebelum mencoba kembali: "
+                    + ex.getMessage()
+                );
+
+                generated.set(List.of());
+                dialog.close();
+                refreshAll();
+            }
+        });
+
+        VerticalLayout body = new VerticalLayout(
+                new Paragraph(
+                    "Masukkan catatan keuangan. "
+                    + "Hasil AI harus diperiksa sebelum disimpan."
+                ),
+                prompt,
+                generate,
+                loading,
+                preview
+        );
+
+        setupDialog(
+                dialog,
+                "Generate AI Cashflow",
+                body,
+                cancel,
+                apply
+        );
+
+        dialog.setWidth("700px");
+
+        dialog.open();
+    }
+
+    private void setupDialog(
+            Dialog dialog,
+            String title,
+            Component body,
+            Button... buttons
+    ) {
+
+        dialog.setWidth("520px");
+        dialog.setMaxWidth("95vw");
+
+        dialog.setCloseOnEsc(false);
+        dialog.setCloseOnOutsideClick(false);
+
+        Span label = new Span(title);
+
+        label.getStyle()
+                .set("font-weight", "700")
+                .set("color", "#FFFFFF");
+
+        Div header = new Div(label);
+
+        header.getStyle()
+                .set("background", "#2563EB")
+                .set("padding", "16px");
+
+        Div content = new Div(body);
+
+        content.getStyle()
+                .set("padding", "12px");
+
+        HorizontalLayout footer =
+                new HorizontalLayout(buttons);
+
+        footer.setWidthFull();
+
+        footer.setJustifyContentMode(
+                JustifyContentMode.END
+        );
+
+        footer.getStyle()
+                .set("background", "#F3F4F6")
+                .set("padding", "12px")
+                .set("box-sizing", "border-box");
+
+        for (Button button : buttons) {
+
+            button.getStyle().set("cursor", "pointer");
+        }
+
+        Div shell = new Div(header, content, footer);
+
+        shell.setWidthFull();
+
+        shell.getStyle()
+                .set("overflow", "hidden")
+                .set("border-radius", "10px");
+
+        dialog.add(shell);
+    }
+
+    private void success(String message) {
+
+        Notification notification = Notification.show(
+                message,
+                3000,
+                Notification.Position.BOTTOM_START
+        );
+
+        notification.addThemeVariants(
+                NotificationVariant.LUMO_SUCCESS
+        );
+    }
+
+    private void error(String message) {
+
+        Notification notification = Notification.show(
+                message == null
+                    ? "Terjadi kesalahan"
+                    : message,
+                5000,
+                Notification.Position.BOTTOM_START
+        );
+
+        notification.addThemeVariants(
+                NotificationVariant.LUMO_ERROR
+        );
+    }
+}
+
+===== C:\Users\ASUS\Documents\ifs25048-p6-pbo2026-springboot-cashflow\src\main\java\org\delcom\ifs25048springbootcashflow\framework\view\GridStyles.java =====
+package org.delcom.ifs25048springbootcashflow.framework.view;
+
+import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.grid.GridVariant;
+
+/**
+ * Styling grid agar lebih mudah dibaca (header kontras + stripe).
+ */
+final class GridStyles {
+
+    private GridStyles() {
+    }
+
+    static void apply(Grid<?> grid) {
+        grid.addClassName("app-grid");
+        grid.addThemeVariants(
+                GridVariant.LUMO_ROW_STRIPES,
+                GridVariant.LUMO_COLUMN_BORDERS,
+                GridVariant.LUMO_WRAP_CELL_CONTENT
+        );
+        grid.getStyle()
+                .set("border", "1px solid #CBD5E1")
+                .set("border-radius", "10px")
+                .set("overflow", "hidden");
+    }
+}
+
+===== C:\Users\ASUS\Documents\ifs25048-p6-pbo2026-springboot-cashflow\src\main\java\org\delcom\ifs25048springbootcashflow\framework\view\ImagePreviewDialog.java =====
+package org.delcom.ifs25048springbootcashflow.framework.view;
+
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.dialog.Dialog;
+import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.html.Image;
+import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.component.icon.VaadinIcon;
+
+import java.util.concurrent.atomic.AtomicReference;
+
+/**
+ * Modal untuk menampilkan gambar dalam ukuran diperbesar dengan fitur zoom interaktif.
+ */
+final class ImagePreviewDialog {
+
+    private ImagePreviewDialog() {
+    }
+
+    static void open(String imageUrl, String alt) {
+        if (imageUrl == null || imageUrl.isBlank()) {
+            return;
+        }
+
+        String title = alt == null || alt.isBlank() ? "Pratinjau Gambar" : alt;
+
+        Span headerTitle = new Span(title);
+        headerTitle.getStyle()
+                .set("margin", "0")
+                .set("color", "#FFFFFF")
+                .set("font-size", "1.125rem")
+                .set("font-weight", "600")
+                .set("line-height", "1.4");
+
+        Span headerHint = new Span("Klik gambar untuk memperbesar / memperkecil");
+        headerHint.getStyle()
+                .set("margin-top", "0.2rem")
+                .set("color", "#BFDBFE")
+                .set("font-size", "0.8rem")
+                .set("display", "block");
+
+        Div header = new Div(headerTitle, headerHint);
+        header.getStyle()
+                .set("background", "#2563EB")
+                .set("padding", "0.9rem 1.5rem")
+                .set("box-sizing", "border-box")
+                .set("width", "100%");
+
+        Image image = new Image(imageUrl, title);
+        image.getStyle()
+                .set("display", "block")
+                .set("max-width", "100%")
+                .set("max-height", "68vh")
+                .set("width", "auto")
+                .set("height", "auto")
+                .set("object-fit", "contain")
+                .set("border-radius", "8px")
+                .set("cursor", "zoom-in")
+                .set("transition", "transform 0.25s ease")
+                .set("user-select", "none");
+        image.getElement().setAttribute("title", "Klik untuk zoom");
+
+        Div imageWrapper = new Div(image);
+        imageWrapper.getStyle()
+                .set("display", "flex")
+                .set("justify-content", "center")
+                .set("align-items", "center")
+                .set("overflow", "auto")
+                .set("max-height", "70vh")
+                .set("max-width", "min(88vw, 860px)")
+                .set("width", "100%")
+                .set("box-sizing", "border-box");
+
+        Div body = new Div(imageWrapper);
+        body.getStyle()
+                .set("display", "flex")
+                .set("justify-content", "center")
+                .set("align-items", "center")
+                .set("background", "#FFFFFF")
+                .set("padding", "1rem 1.25rem")
+                .set("box-sizing", "border-box")
+                .set("width", "100%")
+                .set("overflow", "hidden");
+
+        Dialog dialog = new Dialog();
+        dialog.setCloseOnEsc(true);
+        dialog.setCloseOnOutsideClick(true);
+        dialog.setResizable(false);
+        dialog.setMaxWidth("95vw");
+
+        AtomicReference<Double> currentScale = new AtomicReference<>(1.0);
+
+        Runnable applyScale = () -> {
+            double scale = currentScale.get();
+            if (scale <= 1.0) {
+                currentScale.set(1.0);
+                image.getStyle()
+                        .set("transform", "scale(1)")
+                        .set("cursor", "zoom-in");
+            } else {
+                image.getStyle()
+                        .set("transform", "scale(" + scale + ")")
+                        .set("transform-origin", "center center")
+                        .set("cursor", "zoom-out");
+            }
+        };
+
+        // Klik langsung pada gambar untuk toggle zoom
+        image.addClickListener(event -> {
+            if (currentScale.get() > 1.0) {
+                currentScale.set(1.0);
+            } else {
+                currentScale.set(1.8);
+            }
+            applyScale.run();
+        });
+
+        Button zoomOutButton = new Button("Perkecil", VaadinIcon.SEARCH_MINUS.create(), event -> {
+            currentScale.set(Math.max(currentScale.get() - 0.4, 1.0));
+            applyScale.run();
+        });
+        zoomOutButton.getStyle().set("cursor", "pointer");
+
+        Button zoomInButton = new Button("Perbesar", VaadinIcon.SEARCH_PLUS.create(), event -> {
+            currentScale.set(Math.min(currentScale.get() + 0.4, 3.0));
+            applyScale.run();
+        });
+        zoomInButton.getStyle().set("cursor", "pointer");
+
+        Button closeButton = new Button("Tutup", VaadinIcon.CLOSE.create(), event -> dialog.close());
+        closeButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+        closeButton.getStyle().set("cursor", "pointer");
+
+        Div footer = new Div(zoomOutButton, zoomInButton, closeButton);
+        footer.getStyle()
+                .set("display", "flex")
+                .set("justify-content", "flex-end")
+                .set("align-items", "center")
+                .set("gap", "0.6rem")
+                .set("background", "#F3F4F6")
+                .set("border-top", "1px solid #E5E7EB")
+                .set("padding", "0.85rem 1.5rem 1.1rem")
+                .set("box-sizing", "border-box")
+                .set("width", "100%");
+
+        Div shell = new Div(header, body, footer);
+        shell.getStyle()
+                .set("display", "flex")
+                .set("flex-direction", "column")
+                .set("width", "100%")
+                .set("overflow", "hidden")
+                .set("border-radius", "12px")
+                .set("background", "#FFFFFF");
+
+        dialog.removeAll();
+        dialog.add(shell);
+
+        dialog.addOpenedChangeListener(event -> {
+            if (event.isOpened()) {
+                dialog.getElement().executeJs("""
+                        const overlay = this.$.overlay;
+                        if (!overlay || !overlay.shadowRoot) {
+                          return;
+                        }
+                        const content = overlay.shadowRoot.querySelector('[part="content"]');
+                        if (content) {
+                          content.style.padding = '0';
+                          content.style.overflow = 'visible';
+                          content.style.maxHeight = 'none';
+                        }
+                        const overlayPart = overlay.shadowRoot.querySelector('[part="overlay"]');
+                        if (overlayPart) {
+                          overlayPart.style.padding = '0';
+                          overlayPart.style.overflow = 'hidden';
+                        }
+                        """);
+            }
+        });
+
+        dialog.open();
+    }
+
+    static Image clickableThumbnail(String imageUrl, String alt, String height) {
+        return clickableThumbnail(imageUrl, alt, height, "6px");
+    }
+
+    static Image clickableThumbnail(String imageUrl, String alt, String height, String borderRadius) {
+        Image image = new Image(imageUrl, alt);
+        image.setHeight(height);
+        image.getStyle()
+                .set("border-radius", borderRadius)
+                .set("object-fit", "cover")
+                .set("cursor", "pointer")
+                .set("display", "block");
+        image.getElement().setAttribute("title", "Klik untuk memperbesar");
+        image.addClickListener(event -> open(imageUrl, alt));
+        return image;
+    }
+}
+
+===== C:\Users\ASUS\Documents\ifs25048-p6-pbo2026-springboot-cashflow\src\main\java\org\delcom\ifs25048springbootcashflow\framework\view\LoadingIndicatorInitListener.java =====
+package org.delcom.ifs25048springbootcashflow.framework.view;
+
+import com.vaadin.flow.component.page.LoadingIndicatorConfiguration;
+import com.vaadin.flow.server.ServiceInitEvent;
+import com.vaadin.flow.server.VaadinServiceInitListener;
+import org.springframework.stereotype.Component;
+
+/**
+ * Konfigurasi indikator loading global untuk tindakan yang memerlukan waktu tunggu.
+ */
+@Component
+public class LoadingIndicatorInitListener implements VaadinServiceInitListener {
+
+    @Override
+    public void serviceInit(ServiceInitEvent event) {
+        event.getSource().addUIInitListener(uiEvent -> {
+            LoadingIndicatorConfiguration conf = uiEvent.getUI().getLoadingIndicatorConfiguration();
+            conf.setApplyDefaultTheme(true);
+            conf.setFirstDelay(150);
+            conf.setSecondDelay(600);
+            conf.setThirdDelay(1500);
+        });
+    }
+}
+
+
+===== C:\Users\ASUS\Documents\ifs25048-p6-pbo2026-springboot-cashflow\src\main\java\org\delcom\ifs25048springbootcashflow\framework\view\LoginView.java =====
+package org.delcom.ifs25048springbootcashflow.framework.view;
+
+import com.vaadin.flow.component.Key;
+import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.html.Paragraph;
+import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.notification.NotificationVariant;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.progressbar.ProgressBar;
+import com.vaadin.flow.component.textfield.PasswordField;
+import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.value.ValueChangeMode;
+import com.vaadin.flow.router.PageTitle;
+import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.RouterLink;
+import org.delcom.ifs25048springbootcashflow.domain.entity.User;
+import org.delcom.ifs25048springbootcashflow.domain.exception.ValidationException;
+import org.delcom.ifs25048springbootcashflow.domain.repository.IUserRepository;
+import org.delcom.ifs25048springbootcashflow.framework.auth.AuthSession;
+import org.delcom.ifs25048springbootcashflow.usecase.AuthUseCase;
+
+@Route("login")
+@PageTitle("Login")
+public class LoginView extends VerticalLayout {
+
+    public LoginView(AuthUseCase authUseCase, IUserRepository userRepository) {
+        if (AuthSession.currentUser(userRepository).isPresent()) {
+            UI.getCurrent().navigate(FinanceView.class);
+            return;
+        }
+
+        setSizeFull();
+        setJustifyContentMode(JustifyContentMode.CENTER);
+        setAlignItems(Alignment.CENTER);
+        getStyle().set("background", "#F3F4F6");
+
+        TextField username = new TextField("Username");
+        PasswordField password = new PasswordField("Password");
+        setInnerInputId(username, "login-username");
+        setInnerInputId(password, "login-password");
+        username.setWidthFull();
+        password.setWidthFull();
+        // Agar nilai sudah sampai server sebelum Enter memicu submit.
+        username.setValueChangeMode(ValueChangeMode.EAGER);
+        password.setValueChangeMode(ValueChangeMode.EAGER);
+
+        ProgressBar loadingBar = new ProgressBar();
+        loadingBar.setIndeterminate(true);
+        loadingBar.setVisible(false);
+        loadingBar.setWidthFull();
+
+        Button loginButton = new Button("Masuk");
+        loginButton.setId("login-submit");
+
+        Runnable submit = () -> {
+            loadingBar.setVisible(true);
+            loginButton.setEnabled(false);
+            try {
+                User user = authUseCase.login(username.getValue(), password.getValue());
+                AuthSession.login(user);
+                UI.getCurrent().navigate(FinanceView.class);
+            } catch (ValidationException ex) {
+                loadingBar.setVisible(false);
+                loginButton.setEnabled(true);
+                Notification n = Notification.show(ex.getMessage(), 4000, Notification.Position.BOTTOM_START);
+                n.addThemeVariants(NotificationVariant.LUMO_ERROR);
+            }
+        };
+
+        loginButton.addClickListener(event -> submit.run());
+        loginButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+        loginButton.setWidthFull();
+        loginButton.getStyle().set("margin-top", "0.85rem");
+        loginButton.getStyle().set("cursor", "pointer");
+        username.addKeyUpListener(Key.ENTER, event -> submit.run());
+        password.addKeyUpListener(Key.ENTER, event -> submit.run());
+
+        H1 title = new H1("Masuk");
+        title.getStyle().set("margin", "0");
+
+        Paragraph subtitle = new Paragraph("Gunakan kredensial akun kamu untuk masuk");
+        subtitle.getStyle().set("margin", "0 0 0.15rem 0").set("color", "#4B5563");
+
+        RouterLink registerLink = new RouterLink("Belum punya akun? Daftar", RegisterView.class);
+        registerLink.getStyle()
+                .set("align-self", "flex-end")
+                .set("text-align", "right")
+                .set("cursor", "pointer");
+
+        VerticalLayout form = new VerticalLayout(
+                title,
+                subtitle,
+                username,
+                password,
+                loadingBar,
+                loginButton,
+                registerLink);
+        form.setPadding(false);
+        form.setSpacing(false);
+        form.setWidthFull();
+        form.getStyle().set("gap", "0.45rem");
+        username.getStyle().set("margin", "0");
+        password.getStyle().set("margin", "0");
+
+        Div card = new Div(form);
+        card.getStyle()
+                .set("width", "100%")
+                .set("max-width", "420px")
+                .set("background", "#FFFFFF")
+                .set("border", "1px solid #E5E7EB")
+                .set("border-radius", "12px")
+                .set("padding", "1.35rem 1.35rem")
+                .set("box-shadow", "0 8px 24px rgba(15, 23, 42, 0.08)")
+                .set("box-sizing", "border-box");
+
+        add(card);
+    }
+
+    private void setInnerInputId(com.vaadin.flow.component.Component component, String id) {
+        Runnable apply = () -> component.getElement().executeJs(
+                "const applyId = () => {" +
+                "  const input = this.inputElement || this.querySelector('input');" +
+                "  if (input) {" +
+                "    input.id = $0;" +
+                "    const label = this.querySelector('label');" +
+                "    if (label) label.setAttribute('for', $0);" +
+                "    return true;" +
+                "  }" +
+                "  return false;" +
+                "};" +
+                "if (!applyId()) {" +
+                "  if (this.updateComplete) { this.updateComplete.then(applyId); }" +
+                "  const obs = new MutationObserver(() => { if (applyId()) obs.disconnect(); });" +
+                "  obs.observe(this, { childList: true, subtree: true });" +
+                "}", id);
+
+        apply.run();
+        component.addAttachListener(event -> apply.run());
+    }
+}
+
+===== C:\Users\ASUS\Documents\ifs25048-p6-pbo2026-springboot-cashflow\src\main\java\org\delcom\ifs25048springbootcashflow\framework\view\MainLayout.java =====
+package org.delcom.ifs25048springbootcashflow.framework.view;
+
+import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.applayout.AppLayout;
+import com.vaadin.flow.component.applayout.DrawerToggle;
+import com.vaadin.flow.component.contextmenu.ContextMenu;
+import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.html.Image;
+import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.orderedlayout.FlexComponent;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.router.AfterNavigationEvent;
+import com.vaadin.flow.router.AfterNavigationObserver;
+import com.vaadin.flow.router.BeforeEnterEvent;
+import com.vaadin.flow.router.BeforeEnterObserver;
+import com.vaadin.flow.router.RouterLink;
+import org.delcom.ifs25048springbootcashflow.domain.entity.User;
+import org.delcom.ifs25048springbootcashflow.domain.repository.IUserRepository;
+import org.delcom.ifs25048springbootcashflow.framework.auth.AuthSession;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Layout utama untuk halaman yang memerlukan login.
+ */
+public class MainLayout extends AppLayout implements BeforeEnterObserver, AfterNavigationObserver {
+
+    private final IUserRepository userRepository;
+    private final List<NavEntry> navEntries = new ArrayList<>();
+    private final Image headerAvatarImage = new Image();
+    private final Span headerAvatarInitial = new Span();
+    private final Div headerAvatar = new Div();
+
+    private record NavEntry(RouterLink link, String pathPrefix) {
+    }
+
+    public MainLayout(IUserRepository userRepository) {
+        this.userRepository = userRepository;
+        setPrimarySection(Section.DRAWER);
+        AuthSession.currentUser(userRepository);
+        createHeader();
+        createDrawer();
+    }
+
+    private void createHeader() {
+        HorizontalLayout brandTitle = appBrandTitle("1.2rem", "28px");
+
+        configureHeaderAvatar();
+        refreshHeaderAvatar(AuthSession.currentUser().orElse(null));
+
+        HorizontalLayout header = new HorizontalLayout(new DrawerToggle(), brandTitle, headerAvatar);
+        header.setDefaultVerticalComponentAlignment(FlexComponent.Alignment.CENTER);
+        header.expand(brandTitle);
+        header.setWidthFull();
+        header.setPadding(true);
+        header.getStyle()
+                .set("background", "#FFFFFF")
+                .set("border-bottom", "1px solid #E5E7EB");
+        addToNavbar(header);
+    }
+
+    private HorizontalLayout appBrandTitle(String fontSize, String iconSize) {
+        Image logo = new Image("icons/icon.png", "Cashflow");
+        logo.setWidth(iconSize);
+        logo.setHeight(iconSize);
+        logo.getStyle()
+                .set("display", "block")
+                .set("border-radius", "6px")
+                .set("object-fit", "cover")
+                .set("flex-shrink", "0");
+
+        Span title = new Span("Cashflow");
+        title.getStyle()
+                .set("font-size", fontSize)
+                .set("font-weight", "700")
+                .set("margin", "0")
+                .set("color", "#111827")
+                .set("line-height", "1.2");
+
+        HorizontalLayout brand = new HorizontalLayout(logo, title);
+        brand.setDefaultVerticalComponentAlignment(FlexComponent.Alignment.CENTER);
+        brand.setSpacing(false);
+        brand.setPadding(false);
+        brand.getStyle().set("gap", "0.65rem");
+        return brand;
+    }
+
+    private void configureHeaderAvatar() {
+        headerAvatarImage.setWidth("40px");
+        headerAvatarImage.setHeight("40px");
+        headerAvatarImage.getStyle()
+                .set("border-radius", "50%")
+                .set("object-fit", "cover")
+                .set("display", "block");
+
+        headerAvatarInitial.getStyle()
+                .set("width", "40px")
+                .set("height", "40px")
+                .set("border-radius", "50%")
+                .set("display", "inline-flex")
+                .set("align-items", "center")
+                .set("justify-content", "center")
+                .set("background", "#DBEAFE")
+                .set("color", "#1D4ED8")
+                .set("font-weight", "700")
+                .set("font-size", "0.95rem");
+
+        headerAvatar.removeAll();
+        headerAvatar.add(headerAvatarInitial);
+        headerAvatar.getStyle()
+                .set("cursor", "pointer")
+                .set("border", "2px solid #93C5FD")
+                .set("border-radius", "50%")
+                .set("overflow", "hidden")
+                .set("width", "40px")
+                .set("height", "40px")
+                .set("flex-shrink", "0");
+        headerAvatar.getElement().setAttribute("title", "Menu akun");
+
+        ContextMenu accountMenu = new ContextMenu(headerAvatar);
+        accountMenu.setOpenOnClick(true);
+
+        AuthSession.currentUser().ifPresent(user -> {
+            var identityItem = accountMenu.addItem(accountIdentity(user));
+            identityItem.setEnabled(false);
+            identityItem.getStyle().set("cursor", "default");
+            var profileItem = accountMenu.addItem(menuItemContent(VaadinIcon.USER, "Profil", "#4B5563", "#1F2937"), event ->
+                    UI.getCurrent().navigate(ProfileView.class));
+            profileItem.getStyle().set("cursor", "pointer");
+            var logoutItem = accountMenu.addItem(menuItemContent(VaadinIcon.SIGN_OUT, "Keluar", "#DC2626", "#DC2626"), event -> {
+                AuthSession.logout();
+                // Full reload agar UI tidak blank setelah keluar dari MainLayout.
+                UI.getCurrent().getPage().setLocation("login");
+            });
+            logoutItem.getStyle().set("cursor", "pointer");
+        });
+    }
+
+    private VerticalLayout accountIdentity(User user) {
+        Span username = new Span(user.getUsername());
+        username.getStyle()
+                .set("display", "block")
+                .set("font-weight", "700")
+                .set("font-size", "0.95rem")
+                .set("color", "#111827")
+                .set("margin", "0");
+
+        Span role = new Span(user.getRole().name());
+        role.getStyle()
+                .set("display", "block")
+                .set("margin-top", "0.15rem")
+                .set("font-size", "0.75rem")
+                .set("font-weight", "600")
+                .set("letter-spacing", "0.02em")
+                .set("color", "#1D4ED8");
+
+        VerticalLayout identity = new VerticalLayout(username, role);
+        identity.setPadding(false);
+        identity.setSpacing(false);
+        identity.setMargin(false);
+        identity.getStyle()
+                .set("gap", "0")
+                .set("padding", "0.15rem 0")
+                .set("min-width", "8rem");
+        return identity;
+    }
+
+    private HorizontalLayout menuItemContent(VaadinIcon iconType, String label, String iconColor, String textColor) {
+        Icon icon = iconType.create();
+        icon.setSize("1rem");
+        icon.getStyle()
+                .set("color", iconColor)
+                .set("flex-shrink", "0")
+                .set("margin", "0");
+
+        Span text = new Span(label);
+        text.getStyle()
+                .set("color", textColor)
+                .set("font-weight", "600")
+                .set("margin", "0");
+
+        HorizontalLayout content = new HorizontalLayout(icon, text);
+        content.setAlignItems(FlexComponent.Alignment.CENTER);
+        content.setJustifyContentMode(FlexComponent.JustifyContentMode.START);
+        content.setSpacing(false);
+        content.setPadding(false);
+        content.setMargin(false);
+        content.setWidth(null);
+        content.getStyle()
+                .set("gap", "0.5rem")
+                .set("margin", "0")
+                .set("padding", "0")
+                .set("justify-content", "flex-start")
+                .set("display", "inline-flex");
+        return content;
+    }
+
+    private void refreshHeaderAvatar(User user) {
+        if (user == null) {
+            headerAvatarInitial.setText("?");
+            headerAvatar.removeAll();
+            headerAvatar.add(headerAvatarInitial);
+            return;
+        }
+
+        String initial = user.getFullName() == null || user.getFullName().isBlank()
+                ? user.getUsername().substring(0, 1).toUpperCase()
+                : user.getFullName().substring(0, 1).toUpperCase();
+        headerAvatarInitial.setText(initial);
+
+        headerAvatar.removeAll();
+        if (user.getPhotoPath() != null && !user.getPhotoPath().isBlank()) {
+            headerAvatarImage.setSrc("/uploads/" + user.getPhotoPath() + "?t=" + System.currentTimeMillis());
+            headerAvatarImage.setAlt(user.getFullName());
+            headerAvatar.add(headerAvatarImage);
+        } else {
+            headerAvatar.add(headerAvatarInitial);
+        }
+    }
+
+    private void createDrawer() {
+        VerticalLayout drawer = new VerticalLayout();
+        drawer.setSizeFull();
+        drawer.setPadding(false);
+        drawer.setSpacing(false);
+        drawer.getStyle()
+                .set("background", "#FFFFFF")
+                .set("border-right", "1px solid #E5E7EB");
+
+        Div brand = new Div();
+        brand.getStyle()
+                .set("padding", "1.25rem 1rem 1rem")
+                .set("border-bottom", "1px solid #E5E7EB");
+        brand.add(appBrandTitle("1.05rem", "30px"));
+
+        VerticalLayout menu = new VerticalLayout();
+        menu.setPadding(true);
+        menu.setSpacing(false);
+        menu.getStyle().set("gap", "0.35rem").set("padding-top", "1rem");
+
+        menu.add(navItem("Catatan Keuangan Saya", FinanceView.class, "", VaadinIcon.MONEY));
+        menu.add(navItem("Profil", ProfileView.class, "profile", VaadinIcon.USER));
+
+        AuthSession.currentUser()
+                .filter(User::isAdmin)
+                .ifPresent(user -> menu.add(navItem("Daftar Pengguna", UsersView.class, "users", VaadinIcon.USERS)));
+
+        drawer.add(brand, menu);
+        drawer.expand(menu);
+        addToDrawer(drawer);
+    }
+
+    private RouterLink navItem(
+            String label,
+            Class<? extends Component> view,
+            String pathPrefix,
+            VaadinIcon iconType
+    ) {
+        Icon icon = iconType.create();
+        icon.setSize("1.05rem");
+        icon.getStyle().set("color", "#4B5563");
+
+        Span text = new Span(label);
+        text.getStyle()
+                .set("font-size", "0.95rem")
+                .set("font-weight", "500")
+                .set("color", "#1F2937");
+
+        HorizontalLayout content = new HorizontalLayout(icon, text);
+        content.setAlignItems(FlexComponent.Alignment.CENTER);
+        content.setSpacing(true);
+        content.setPadding(false);
+        content.getStyle().set("gap", "0.65rem");
+
+        RouterLink link = new RouterLink();
+        link.setRoute(view);
+        link.add(content);
+        link.getStyle()
+                .set("display", "block")
+                .set("width", "100%")
+                .set("text-decoration", "none")
+                .set("padding", "0.7rem 0.85rem")
+                .set("border-radius", "10px")
+                .set("box-sizing", "border-box")
+                .set("border", "1px solid transparent")
+                .set("transition", "background 0.15s ease")
+                .set("cursor", "pointer");
+
+        link.getElement().addEventListener("mouseover", e -> {
+            if (!"true".equals(link.getElement().getAttribute("data-active"))) {
+                link.getStyle().set("background", "#F3F4F6");
+            }
+        });
+        link.getElement().addEventListener("mouseout", e -> {
+            if (!"true".equals(link.getElement().getAttribute("data-active"))) {
+                link.getStyle().set("background", "transparent");
+            }
+        });
+
+        navEntries.add(new NavEntry(link, pathPrefix));
+        return link;
+    }
+
+    private void highlightActive(String path) {
+        String normalized = path == null ? "" : path;
+        if (normalized.startsWith("/")) {
+            normalized = normalized.substring(1);
+        }
+
+        for (NavEntry entry : navEntries) {
+            boolean active;
+            if (entry.pathPrefix().isEmpty()) {
+                active = normalized.isEmpty();
+            } else {
+                active = normalized.equals(entry.pathPrefix())
+                        || normalized.startsWith(entry.pathPrefix() + "/");
+            }
+            // Highlight Daftar Pengguna juga saat melihat todo user lain.
+            if ("users".equals(entry.pathPrefix()) && normalized.startsWith("user-transactions")) {
+                active = true;
+            }
+
+            RouterLink link = entry.link();
+            if (active) {
+                link.getElement().setAttribute("data-active", "true");
+                link.getStyle()
+                        .set("background", "#DBEAFE")
+                        .set("border", "1px solid #93C5FD");
+                styleNavChildren(link, "#1D4ED8", "#1E40AF", "600");
+            } else {
+                link.getElement().setAttribute("data-active", "false");
+                link.getStyle()
+                        .set("background", "transparent")
+                        .set("border", "1px solid transparent");
+                styleNavChildren(link, "#4B5563", "#1F2937", "500");
+            }
+        }
+    }
+
+    private void styleNavChildren(RouterLink link, String iconColor, String textColor, String weight) {
+        link.getChildren()
+                .filter(HorizontalLayout.class::isInstance)
+                .map(HorizontalLayout.class::cast)
+                .findFirst()
+                .ifPresent(row -> row.getChildren().forEach(child -> {
+                    if (child instanceof Icon icon) {
+                        icon.getStyle().set("color", iconColor);
+                    }
+                    if (child instanceof Span span) {
+                        span.getStyle().set("color", textColor).set("font-weight", weight);
+                    }
+                }));
+    }
+
+    @Override
+    public void afterNavigation(AfterNavigationEvent event) {
+        highlightActive(event.getLocation().getPath());
+        refreshHeaderAvatar(AuthSession.currentUser(userRepository).orElse(null));
+    }
+
+    @Override
+    public void beforeEnter(BeforeEnterEvent event) {
+        if (AuthSession.currentUser(userRepository).isEmpty()) {
+            event.forwardTo(LoginView.class);
+        }
+    }
+}
+
+===== C:\Users\ASUS\Documents\ifs25048-p6-pbo2026-springboot-cashflow\src\main\java\org\delcom\ifs25048springbootcashflow\framework\view\PageCard.java =====
+package org.delcom.ifs25048springbootcashflow.framework.view;
+
+import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+
+/**
+ * Card konten halaman agar tampilan konsisten.
+ * Komponen terakhir (biasanya grid) mengisi sisa tinggi agar tabel tidak terdesak.
+ */
+final class PageCard {
+
+    private PageCard() {
+    }
+
+    static Div wrap(Component... content) {
+        return wrap(true, content);
+    }
+
+    static Div wrap(boolean fullHeight, Component... content) {
+        VerticalLayout body = new VerticalLayout();
+        body.setPadding(false);
+        body.setSpacing(false);
+        body.setWidthFull();
+        body.getStyle().set("gap", "0.65rem");
+
+        for (Component component : content) {
+            body.add(component);
+        }
+
+        if (fullHeight) {
+            body.setSizeFull();
+            body.getStyle().set("min-height", "0").set("flex", "1 1 auto");
+            if (content.length > 0) {
+                Component last = content[content.length - 1];
+                body.setFlexGrow(1, last);
+                last.getElement().getStyle().set("min-height", "0");
+            }
+        }
+
+        Div card = new Div(body);
+        card.setWidthFull();
+        if (fullHeight) {
+            card.setHeightFull();
+            card.getStyle()
+                    .set("display", "flex")
+                    .set("flex-direction", "column")
+                    .set("min-height", "0")
+                    .set("overflow", "hidden");
+        }
+        card.getStyle()
+                .set("background", "#FFFFFF")
+                .set("border", "1px solid #E5E7EB")
+                .set("border-radius", "12px")
+                .set("padding", "1rem 1.1rem")
+                .set("box-shadow", "0 8px 24px rgba(15, 23, 42, 0.06)")
+                .set("box-sizing", "border-box");
+        return card;
+    }
+}
+
+===== C:\Users\ASUS\Documents\ifs25048-p6-pbo2026-springboot-cashflow\src\main\java\org\delcom\ifs25048springbootcashflow\framework\view\ProfileView.java =====
+package org.delcom.ifs25048springbootcashflow.framework.view;
+
+import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.html.Image;
+import com.vaadin.flow.component.html.Paragraph;
+import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.notification.NotificationVariant;
+import com.vaadin.flow.component.orderedlayout.FlexComponent;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.progressbar.ProgressBar;
+import com.vaadin.flow.component.textfield.PasswordField;
+import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.component.upload.Upload;
+import com.vaadin.flow.router.PageTitle;
+import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.streams.UploadHandler;
+import org.delcom.ifs25048springbootcashflow.adapter.storage.FileStorage;
+import org.delcom.ifs25048springbootcashflow.domain.entity.User;
+import org.delcom.ifs25048springbootcashflow.domain.exception.EntityNotFoundException;
+import org.delcom.ifs25048springbootcashflow.domain.exception.ValidationException;
+import org.delcom.ifs25048springbootcashflow.framework.auth.AuthSession;
+import org.delcom.ifs25048springbootcashflow.usecase.UserUseCase;
+
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.util.concurrent.atomic.AtomicReference;
+
+@Route(value = "profile", layout = MainLayout.class)
+@PageTitle("Profil")
+public class ProfileView extends VerticalLayout {
+
+    private final UserUseCase userUseCase;
+    private final FileStorage fileStorage;
+    private final Image photoPreview = new Image();
+    private final Span photoInitial = new Span();
+    private final Div photoFrame = new Div();
+    private final Span photoPlaceholder = new Span("Belum ada foto profil. Upload foto di bawah.");
+
+    public ProfileView(UserUseCase userUseCase, FileStorage fileStorage) {
+        this.userUseCase = userUseCase;
+        this.fileStorage = fileStorage;
+
+        setSizeFull();
+        setPadding(true);
+        setSpacing(false);
+        getStyle().set("background", "#F3F4F6");
+
+        User user = AuthSession.currentUser().orElseThrow();
+
+        TextField fullName = new TextField("Nama Lengkap");
+        fullName.setWidthFull();
+        fullName.setValue(user.getFullName());
+
+        TextField username = new TextField("Username");
+        username.setWidthFull();
+        username.setValue(user.getUsername());
+        username.setReadOnly(true);
+
+        PasswordField password = new PasswordField("Password Baru (opsional)");
+        password.setWidthFull();
+
+        configurePhotoFrame();
+        refreshPhoto(user);
+
+        AtomicReference<String> pendingPhotoName = new AtomicReference<>();
+        AtomicReference<byte[]> pendingPhotoData = new AtomicReference<>();
+
+        Upload upload = new Upload(UploadHandler.inMemory((metadata, data) -> {
+            pendingPhotoName.set(metadata.fileName());
+            pendingPhotoData.set(data);
+        }));
+        upload.setAcceptedMimeTypes("image/png", "image/jpeg", "image/webp");
+        upload.setAcceptedFileExtensions(".png", ".jpg", ".jpeg", ".webp");
+        upload.setMaxFiles(1);
+        upload.setWidthFull();
+
+        ProgressBar loadingBar = new ProgressBar();
+        loadingBar.setIndeterminate(true);
+        loadingBar.setVisible(false);
+        loadingBar.setWidthFull();
+
+        Button savePhoto = new Button("Simpan Foto");
+        savePhoto.getStyle().set("cursor", "pointer");
+
+        Button saveProfile = new Button("Simpan Profil");
+        saveProfile.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+        saveProfile.getStyle().set("margin-top", "0.5rem");
+        saveProfile.getStyle().set("cursor", "pointer");
+
+        savePhoto.addClickListener(event -> {
+            loadingBar.setVisible(true);
+            savePhoto.setEnabled(false);
+            try {
+                String filename = pendingPhotoName.get();
+                byte[] data = pendingPhotoData.get();
+                if (filename == null || filename.isBlank() || data == null) {
+                    loadingBar.setVisible(false);
+                    savePhoto.setEnabled(true);
+                    showError("Pilih file foto terlebih dahulu");
+                    return;
+                }
+                String path = fileStorage.store("profiles", filename, new ByteArrayInputStream(data));
+                User updated = userUseCase.updatePhoto(user.getId(), path);
+                AuthSession.refresh(updated);
+                refreshPhoto(updated);
+                pendingPhotoName.set(null);
+                pendingPhotoData.set(null);
+                loadingBar.setVisible(false);
+                savePhoto.setEnabled(true);
+                showSuccess("Foto profil diperbarui");
+                UI.getCurrent().navigate(ProfileView.class);
+            } catch (ValidationException | EntityNotFoundException | IOException ex) {
+                loadingBar.setVisible(false);
+                savePhoto.setEnabled(true);
+                showError(ex.getMessage());
+            }
+        });
+
+        saveProfile.addClickListener(event -> {
+            loadingBar.setVisible(true);
+            saveProfile.setEnabled(false);
+            try {
+                User updated = userUseCase.updateProfile(user.getId(), fullName.getValue(), password.getValue());
+                AuthSession.refresh(updated);
+                password.clear();
+                loadingBar.setVisible(false);
+                saveProfile.setEnabled(true);
+                showSuccess("Profil diperbarui");
+            } catch (ValidationException | EntityNotFoundException ex) {
+                loadingBar.setVisible(false);
+                saveProfile.setEnabled(true);
+                showError(ex.getMessage());
+            }
+        });
+
+        H1 title = new H1("Profil");
+        title.getStyle().set("margin", "0");
+        Paragraph subtitle = new Paragraph("Perbarui nama, password, dan foto profil.");
+        subtitle.getStyle().set("margin", "0").set("color", "#4B5563");
+
+        Span photoLabel = new Span("Foto Profil");
+        photoLabel.getStyle().set("font-weight", "600").set("color", "#1F2937");
+
+        HorizontalLayout photoRow = new HorizontalLayout(photoFrame, photoPlaceholder);
+        photoRow.setAlignItems(FlexComponent.Alignment.CENTER);
+        photoRow.setSpacing(true);
+        photoRow.setWidthFull();
+
+        Div card = PageCard.wrap(
+                false,
+                title,
+                subtitle,
+                photoLabel,
+                photoRow,
+                upload,
+                savePhoto,
+                fullName,
+                username,
+                password,
+                loadingBar,
+                saveProfile);
+        card.getStyle().set("max-width", "560px");
+        add(card);
+    }
+
+    private void configurePhotoFrame() {
+        photoPreview.setWidth("120px");
+        photoPreview.setHeight("120px");
+        photoPreview.getStyle()
+                .set("border-radius", "50%")
+                .set("object-fit", "cover")
+                .set("display", "block")
+                .set("cursor", "zoom-in");
+        photoPreview.getElement().setAttribute("title", "Klik untuk memperbesar");
+        photoPreview.addClickListener(
+                event -> ImagePreviewDialog.open(photoPreview.getSrc(), photoPreview.getAlt().orElse("Foto profil")));
+
+        photoInitial.getStyle()
+                .set("width", "120px")
+                .set("height", "120px")
+                .set("border-radius", "50%")
+                .set("display", "inline-flex")
+                .set("align-items", "center")
+                .set("justify-content", "center")
+                .set("background", "#DBEAFE")
+                .set("color", "#1D4ED8")
+                .set("font-weight", "700")
+                .set("font-size", "2.5rem");
+
+        photoFrame.getStyle()
+                .set("width", "120px")
+                .set("height", "120px")
+                .set("border-radius", "50%")
+                .set("overflow", "hidden")
+                .set("border", "3px solid #93C5FD")
+                .set("flex-shrink", "0")
+                .set("background", "#EFF6FF");
+
+        photoPlaceholder.getStyle().set("color", "#6B7280");
+    }
+
+    private void refreshPhoto(User user) {
+        String initial = user.getFullName() == null || user.getFullName().isBlank()
+                ? user.getUsername().substring(0, 1).toUpperCase()
+                : user.getFullName().substring(0, 1).toUpperCase();
+        photoInitial.setText(initial);
+
+        photoFrame.removeAll();
+        if (user.getPhotoPath() == null || user.getPhotoPath().isBlank()) {
+            photoFrame.add(photoInitial);
+            photoPlaceholder.setVisible(true);
+            return;
+        }
+        photoPreview.setSrc("/uploads/" + user.getPhotoPath() + "?t=" + System.currentTimeMillis());
+        photoPreview.setAlt(user.getFullName());
+        photoFrame.add(photoPreview);
+        photoPlaceholder.setVisible(false);
+    }
+
+    private void showSuccess(String message) {
+        Notification n = Notification.show(message, 3000, Notification.Position.BOTTOM_START);
+        n.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
+    }
+
+    private void showError(String message) {
+        Notification n = Notification.show(message, 4000, Notification.Position.BOTTOM_START);
+        n.addThemeVariants(NotificationVariant.LUMO_ERROR);
+    }
+}
+
+===== C:\Users\ASUS\Documents\ifs25048-p6-pbo2026-springboot-cashflow\src\main\java\org\delcom\ifs25048springbootcashflow\framework\view\RegisterView.java =====
+package org.delcom.ifs25048springbootcashflow.framework.view;
+
+import com.vaadin.flow.component.Key;
+import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.html.Paragraph;
+import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.notification.NotificationVariant;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.progressbar.ProgressBar;
+import com.vaadin.flow.component.textfield.PasswordField;
+import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.value.ValueChangeMode;
+import com.vaadin.flow.router.PageTitle;
+import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.RouterLink;
+import org.delcom.ifs25048springbootcashflow.domain.entity.User;
+import org.delcom.ifs25048springbootcashflow.domain.exception.ValidationException;
+import org.delcom.ifs25048springbootcashflow.domain.repository.IUserRepository;
+import org.delcom.ifs25048springbootcashflow.framework.auth.AuthSession;
+import org.delcom.ifs25048springbootcashflow.usecase.AuthUseCase;
+
+@Route("register")
+@PageTitle("Registrasi")
+public class RegisterView extends VerticalLayout {
+
+    public RegisterView(AuthUseCase authUseCase, IUserRepository userRepository) {
+        if (AuthSession.currentUser(userRepository).isPresent()) {
+            UI.getCurrent().navigate(FinanceView.class);
+            return;
+        }
+
+        setSizeFull();
+        setJustifyContentMode(JustifyContentMode.CENTER);
+        setAlignItems(Alignment.CENTER);
+        getStyle().set("background", "#F3F4F6");
+
+        TextField fullName = new TextField("Nama Lengkap");
+        TextField username = new TextField("Username");
+        PasswordField password = new PasswordField("Password");
+        fullName.setWidthFull();
+        username.setWidthFull();
+        password.setWidthFull();
+        // Agar nilai sudah sampai server sebelum Enter memicu submit.
+        fullName.setValueChangeMode(ValueChangeMode.EAGER);
+        username.setValueChangeMode(ValueChangeMode.EAGER);
+        password.setValueChangeMode(ValueChangeMode.EAGER);
+
+        ProgressBar loadingBar = new ProgressBar();
+        loadingBar.setIndeterminate(true);
+        loadingBar.setVisible(false);
+        loadingBar.setWidthFull();
+
+        Button registerButton = new Button("Daftar");
+
+        Runnable submit = () -> {
+            loadingBar.setVisible(true);
+            registerButton.setEnabled(false);
+            try {
+                User user = authUseCase.register(username.getValue(), password.getValue(), fullName.getValue());
+                AuthSession.login(user);
+                UI.getCurrent().navigate(FinanceView.class);
+            } catch (ValidationException ex) {
+                loadingBar.setVisible(false);
+                registerButton.setEnabled(true);
+                Notification n = Notification.show(ex.getMessage(), 4000, Notification.Position.BOTTOM_START);
+                n.addThemeVariants(NotificationVariant.LUMO_ERROR);
+            }
+        };
+
+        registerButton.addClickListener(event -> submit.run());
+        registerButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+        registerButton.setWidthFull();
+        registerButton.getStyle().set("margin-top", "0.85rem");
+        registerButton.getStyle().set("cursor", "pointer");
+        fullName.addKeyUpListener(Key.ENTER, event -> submit.run());
+        username.addKeyUpListener(Key.ENTER, event -> submit.run());
+        password.addKeyUpListener(Key.ENTER, event -> submit.run());
+
+        H1 title = new H1("Registrasi");
+        title.getStyle().set("margin", "0");
+
+        Paragraph subtitle = new Paragraph("Buat akun baru untuk mengelola todolist.");
+        subtitle.getStyle().set("margin", "0 0 0.15rem 0").set("color", "#4B5563");
+
+        RouterLink loginLink = new RouterLink("Sudah punya akun? Masuk", LoginView.class);
+        loginLink.getStyle()
+                .set("align-self", "flex-end")
+                .set("text-align", "right")
+                .set("cursor", "pointer");
+
+        VerticalLayout form = new VerticalLayout(
+                title,
+                subtitle,
+                fullName,
+                username,
+                password,
+                loadingBar,
+                registerButton,
+                loginLink);
+        form.setPadding(false);
+        form.setSpacing(false);
+        form.setWidthFull();
+        form.getStyle().set("gap", "0.45rem");
+        fullName.getStyle().set("margin", "0");
+        username.getStyle().set("margin", "0");
+        password.getStyle().set("margin", "0");
+
+        Div card = new Div(form);
+        card.getStyle()
+                .set("width", "100%")
+                .set("max-width", "420px")
+                .set("background", "#FFFFFF")
+                .set("border", "1px solid #E5E7EB")
+                .set("border-radius", "12px")
+                .set("padding", "1.35rem 1.35rem")
+                .set("box-shadow", "0 8px 24px rgba(15, 23, 42, 0.08)")
+                .set("box-sizing", "border-box");
+
+        add(card);
+    }
+}
+
+===== C:\Users\ASUS\Documents\ifs25048-p6-pbo2026-springboot-cashflow\src\main\java\org\delcom\ifs25048springbootcashflow\framework\view\UsersView.java =====
+package org.delcom.ifs25048springbootcashflow.framework.view;
+
+import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.html.Paragraph;
+import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.router.BeforeEnterEvent;
+import com.vaadin.flow.router.BeforeEnterObserver;
+import com.vaadin.flow.router.PageTitle;
+import com.vaadin.flow.router.Route;
+import org.delcom.ifs25048springbootcashflow.domain.entity.User;
+import org.delcom.ifs25048springbootcashflow.framework.auth.AuthSession;
+import org.delcom.ifs25048springbootcashflow.usecase.UserUseCase;
+
+@Route(value = "users", layout = MainLayout.class)
+@PageTitle("Daftar Pengguna")
+public class UsersView extends VerticalLayout implements BeforeEnterObserver {
+
+    public UsersView(UserUseCase userUseCase) {
+        setSizeFull();
+        setPadding(true);
+        setSpacing(false);
+        getStyle().set("background", "#F3F4F6");
+
+        Grid<User> grid = new Grid<>(User.class, false);
+        grid.addComponentColumn(user -> {
+            if (user.getPhotoPath() == null || user.getPhotoPath().isBlank()) {
+                return new Span("-");
+            }
+            return ImagePreviewDialog.clickableThumbnail(
+                    "/uploads/" + user.getPhotoPath(),
+                    "Foto",
+                    "40px",
+                    "50%"
+            );
+        }).setHeader("Foto").setAutoWidth(true);
+        grid.addColumn(User::getId).setHeader("ID").setAutoWidth(true);
+        grid.addColumn(User::getUsername).setHeader("Username").setFlexGrow(1);
+        grid.addColumn(User::getFullName).setHeader("Nama").setFlexGrow(1);
+        grid.addColumn(user -> user.getRole().name()).setHeader("Role").setAutoWidth(true);
+        grid.addComponentColumn(user -> {
+            Button open = new Button("Lihat Transaksi", event ->
+                    UI.getCurrent().navigate(UserTransactionsView.class, user.getId()));
+            open.addThemeVariants(ButtonVariant.LUMO_TERTIARY_INLINE);
+            open.getStyle().set("cursor", "pointer");
+            return open;
+        }).setHeader("Tindakan").setAutoWidth(true);
+
+        grid.setItems(userUseCase.listUsers());
+        grid.setSizeFull();
+        GridStyles.apply(grid);
+
+        H1 title = new H1("Daftar Pengguna");
+        title.getStyle().set("margin", "0");
+        Paragraph subtitle = new Paragraph("Admin dapat membuka transaksi pengguna lain (hanya melihat).");
+        subtitle.getStyle().set("margin", "0").set("color", "#4B5563");
+
+        Div card = PageCard.wrap(title, subtitle, grid);
+        add(card);
+        expand(card);
+    }
+
+    @Override
+    public void beforeEnter(BeforeEnterEvent event) {
+        User current = AuthSession.currentUser().orElse(null);
+        if (current == null || !current.isAdmin()) {
+            event.forwardTo(FinanceView.class);
+        }
+    }
+}
+
+===== C:\Users\ASUS\Documents\ifs25048-p6-pbo2026-springboot-cashflow\src\main\java\org\delcom\ifs25048springbootcashflow\framework\view\UserTransactionsView.java =====
+package org.delcom.ifs25048springbootcashflow.framework.view;
+
+import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.html.Paragraph;
+import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+
+import com.vaadin.flow.router.BeforeEnterEvent;
+import com.vaadin.flow.router.BeforeEnterObserver;
+import com.vaadin.flow.router.BeforeEvent;
+import com.vaadin.flow.router.HasUrlParameter;
+import com.vaadin.flow.router.OptionalParameter;
+import com.vaadin.flow.router.PageTitle;
+import com.vaadin.flow.router.Route;
+
+import org.delcom.ifs25048springbootcashflow.adapter.presenter.FinancePresenter;
+import org.delcom.ifs25048springbootcashflow.domain.entity.Transaction;
+import org.delcom.ifs25048springbootcashflow.domain.entity.User;
+import org.delcom.ifs25048springbootcashflow.domain.exception.EntityNotFoundException;
+import org.delcom.ifs25048springbootcashflow.domain.repository.IUserRepository;
+import org.delcom.ifs25048springbootcashflow.framework.auth.AuthSession;
+import org.delcom.ifs25048springbootcashflow.usecase.FinanceUseCase;
+import org.delcom.ifs25048springbootcashflow.usecase.UserUseCase;
+
+@Route(value = "user-transactions", layout = MainLayout.class)
+@PageTitle("Transaksi Pengguna")
+public class UserTransactionsView
+        extends VerticalLayout
+        implements HasUrlParameter<Integer>,
+                   BeforeEnterObserver {
+
+    private final UserUseCase userUseCase;
+    private final FinanceUseCase financeUseCase;
+    private final FinancePresenter presenter;
+    private final IUserRepository userRepository;
+
+    private final H1 title =
+            new H1("Transaksi Pengguna");
+
+    private final Paragraph summary =
+            new Paragraph();
+
+    private final Grid<Transaction> grid =
+            new Grid<>(Transaction.class, false);
+
+    private Integer targetUserId;
+
+    public UserTransactionsView(
+            UserUseCase userUseCase,
+            FinanceUseCase financeUseCase,
+            FinancePresenter presenter,
+            IUserRepository userRepository
+    ) {
+
+        this.userUseCase = userUseCase;
+        this.financeUseCase = financeUseCase;
+        this.presenter = presenter;
+        this.userRepository = userRepository;
+
+        setSizeFull();
+        setPadding(true);
+
+        getStyle().set("background", "#F3F4F6");
+
+        configureGrid();
+
+        Div card = PageCard.wrap(
+                title,
+                new Span("Mode read-only"),
+                summary,
+                grid
+        );
+
+        add(card);
+
+        expand(card);
+    }
+
+    private void configureGrid() {
+
+        grid.addComponentColumn(transaction -> {
+
+            String path = transaction.getProofPath();
+
+            if (path == null || path.isBlank()) {
+                return new Span("-");
+            }
+
+            return ImagePreviewDialog.clickableThumbnail(
+                    "/uploads/" + path,
+                    "Bukti transaksi",
+                    "48px"
+            );
+
+        }).setHeader("Bukti").setAutoWidth(true);
+
+        grid.addColumn(Transaction::getId)
+                .setHeader("ID");
+
+        grid.addColumn(Transaction::getDescription)
+                .setHeader("Keterangan")
+                .setFlexGrow(2);
+
+        grid.addColumn(transaction ->
+                presenter.formatAmount(
+                        transaction.getAmount()
+                )
+        ).setHeader("Jumlah");
+
+        grid.addColumn(transaction ->
+                transaction.getType().label()
+        ).setHeader("Tipe");
+
+        grid.addColumn(transaction ->
+                presenter.formatDateTime(
+                        transaction.getCreatedAt()
+                )
+        ).setHeader("Waktu");
+
+        grid.setSizeFull();
+
+        GridStyles.apply(grid);
+    }
+
+    @Override
+    public void setParameter(
+            BeforeEvent event,
+            @OptionalParameter Integer userId
+    ) {
+
+        targetUserId = userId;
+    }
+
+    @Override
+    public void beforeEnter(BeforeEnterEvent event) {
+
+        User current = AuthSession
+                .currentUser(userRepository)
+                .orElse(null);
+
+        if (current == null) {
+
+            event.forwardTo(LoginView.class);
+            return;
+        }
+
+        if (!current.isAdmin()) {
+
+            event.forwardTo(FinanceView.class);
+            return;
+        }
+
+        if (targetUserId == null || targetUserId <= 0) {
+
+            event.forwardTo(UsersView.class);
+            return;
+        }
+
+        try {
+
+            User owner =
+                    userUseCase.getUser(targetUserId);
+
+            title.setText(
+                    "Transaksi milik "
+                    + owner.getFullName()
+                    + " (@" + owner.getUsername() + ")"
+            );
+
+            grid.setItems(
+                    financeUseCase.getTransactionsByUser(
+                            targetUserId
+                    )
+            );
+
+            summary.setText(
+                    "Pemasukan: "
+                    + presenter.formatAmount(
+                        financeUseCase.getTotalIncome(targetUserId)
+                    )
+                    + " | Pengeluaran: "
+                    + presenter.formatAmount(
+                        financeUseCase.getTotalExpense(targetUserId)
+                    )
+                    + " | Saldo: "
+                    + presenter.formatAmount(
+                        financeUseCase.getBalance(targetUserId)
+                    )
+            );
+
+        } catch (EntityNotFoundException ex) {
+
+            event.forwardTo(UsersView.class);
+        }
+    }
+}
+
+===== EXISTING TEST FILES =====
+C:\Users\ASUS\Documents\ifs25048-p6-pbo2026-springboot-cashflow\src\test\java\org\delcom\ifs25048springbootcashflow\AppTest.java
+C:\Users\ASUS\Documents\ifs25048-p6-pbo2026-springboot-cashflow\src\test\java\org\delcom\ifs25048springbootcashflow\DotEnvTest.java
+C:\Users\ASUS\Documents\ifs25048-p6-pbo2026-springboot-cashflow\src\test\java\org\delcom\ifs25048springbootcashflow\adapter\ai\InMemoryFinanceAiServiceTest.java
+C:\Users\ASUS\Documents\ifs25048-p6-pbo2026-springboot-cashflow\src\test\java\org\delcom\ifs25048springbootcashflow\adapter\ai\OpenAiFinanceServiceTest.java
+C:\Users\ASUS\Documents\ifs25048-p6-pbo2026-springboot-cashflow\src\test\java\org\delcom\ifs25048springbootcashflow\adapter\presenter\FinancePresenterTest.java
+C:\Users\ASUS\Documents\ifs25048-p6-pbo2026-springboot-cashflow\src\test\java\org\delcom\ifs25048springbootcashflow\adapter\repository\InMemoryRepositoryTest.java
+C:\Users\ASUS\Documents\ifs25048-p6-pbo2026-springboot-cashflow\src\test\java\org\delcom\ifs25048springbootcashflow\adapter\repository\JdbcTransactionRepositoryTest.java
+C:\Users\ASUS\Documents\ifs25048-p6-pbo2026-springboot-cashflow\src\test\java\org\delcom\ifs25048springbootcashflow\adapter\repository\JdbcUserRepositoryTest.java
+C:\Users\ASUS\Documents\ifs25048-p6-pbo2026-springboot-cashflow\src\test\java\org\delcom\ifs25048springbootcashflow\adapter\repository\SchemaInitializerTest.java
+C:\Users\ASUS\Documents\ifs25048-p6-pbo2026-springboot-cashflow\src\test\java\org\delcom\ifs25048springbootcashflow\adapter\repository\TransactionRepositoryTest.java
+C:\Users\ASUS\Documents\ifs25048-p6-pbo2026-springboot-cashflow\src\test\java\org\delcom\ifs25048springbootcashflow\adapter\repository\UserRepositoryTest.java
+C:\Users\ASUS\Documents\ifs25048-p6-pbo2026-springboot-cashflow\src\test\java\org\delcom\ifs25048springbootcashflow\adapter\storage\FileStorageTest.java
+C:\Users\ASUS\Documents\ifs25048-p6-pbo2026-springboot-cashflow\src\test\java\org\delcom\ifs25048springbootcashflow\config\AppConfigTest.java
+C:\Users\ASUS\Documents\ifs25048-p6-pbo2026-springboot-cashflow\src\test\java\org\delcom\ifs25048springbootcashflow\domain\PasswordHasherTest.java
+C:\Users\ASUS\Documents\ifs25048-p6-pbo2026-springboot-cashflow\src\test\java\org\delcom\ifs25048springbootcashflow\domain\entity\SortOptionTest.java
+C:\Users\ASUS\Documents\ifs25048-p6-pbo2026-springboot-cashflow\src\test\java\org\delcom\ifs25048springbootcashflow\domain\entity\TransactionTest.java
+C:\Users\ASUS\Documents\ifs25048-p6-pbo2026-springboot-cashflow\src\test\java\org\delcom\ifs25048springbootcashflow\domain\entity\TransactionTypeFilterTest.java
+C:\Users\ASUS\Documents\ifs25048-p6-pbo2026-springboot-cashflow\src\test\java\org\delcom\ifs25048springbootcashflow\domain\entity\TransactionTypeTest.java
+C:\Users\ASUS\Documents\ifs25048-p6-pbo2026-springboot-cashflow\src\test\java\org\delcom\ifs25048springbootcashflow\domain\entity\UserTest.java
+C:\Users\ASUS\Documents\ifs25048-p6-pbo2026-springboot-cashflow\src\test\java\org\delcom\ifs25048springbootcashflow\domain\exception\DomainExceptionTest.java
+C:\Users\ASUS\Documents\ifs25048-p6-pbo2026-springboot-cashflow\src\test\java\org\delcom\ifs25048springbootcashflow\domain\exception\EntityNotFoundExceptionTest.java
+C:\Users\ASUS\Documents\ifs25048-p6-pbo2026-springboot-cashflow\src\test\java\org\delcom\ifs25048springbootcashflow\usecase\AuthUseCaseTest.java
+C:\Users\ASUS\Documents\ifs25048-p6-pbo2026-springboot-cashflow\src\test\java\org\delcom\ifs25048springbootcashflow\usecase\FinanceAiUseCaseTest.java
+C:\Users\ASUS\Documents\ifs25048-p6-pbo2026-springboot-cashflow\src\test\java\org\delcom\ifs25048springbootcashflow\usecase\FinanceUseCaseTest.java
+C:\Users\ASUS\Documents\ifs25048-p6-pbo2026-springboot-cashflow\src\test\java\org\delcom\ifs25048springbootcashflow\usecase\UserUseCaseTest.java
