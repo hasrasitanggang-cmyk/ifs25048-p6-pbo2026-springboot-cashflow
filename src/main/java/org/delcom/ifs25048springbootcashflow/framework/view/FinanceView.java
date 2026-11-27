@@ -105,6 +105,7 @@ public class FinanceView extends VerticalLayout
             FileStorage fileStorage,
             IUserRepository userRepository
     ) {
+        getElement().setAttribute("role", "main");
         this.financeUseCase = financeUseCase;
         this.financeAiUseCase = financeAiUseCase;
         this.presenter = presenter;
@@ -164,25 +165,25 @@ public class FinanceView extends VerticalLayout
                     "Total Transaksi",
                     totalCount,
                     "#DBEAFE",
-                    "#2563EB"
+                    "#1D4ED8"
                 ),
                 summaryCard(
                     "Total Pemasukan",
                     totalIncome,
                     "#DCFCE7",
-                    "#16A34A"
+                    "#166534"
                 ),
                 summaryCard(
                     "Total Pengeluaran",
                     totalExpense,
                     "#FEE2E2",
-                    "#DC2626"
+                    "#B91C1C"
                 ),
                 summaryCard(
                     "Saldo",
                     balance,
                     "#FEF3C7",
-                    "#D97706"
+                    "#92400E"
                 )
         );
 

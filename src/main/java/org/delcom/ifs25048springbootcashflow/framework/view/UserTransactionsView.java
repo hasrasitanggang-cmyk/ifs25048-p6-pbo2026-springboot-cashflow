@@ -53,6 +53,7 @@ public class UserTransactionsView
             FinancePresenter presenter,
             IUserRepository userRepository
     ) {
+        getElement().setAttribute("role", "main");
 
         this.userUseCase = userUseCase;
         this.financeUseCase = financeUseCase;

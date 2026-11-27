@@ -43,6 +43,7 @@ public class ProfileView extends VerticalLayout {
     private final Span photoPlaceholder = new Span("Belum ada foto profil. Upload foto di bawah.");
 
     public ProfileView(UserUseCase userUseCase, FileStorage fileStorage) {
+        getElement().setAttribute("role", "main");
         this.userUseCase = userUseCase;
         this.fileStorage = fileStorage;
 

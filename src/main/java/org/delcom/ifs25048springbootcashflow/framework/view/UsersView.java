@@ -22,6 +22,7 @@ import org.delcom.ifs25048springbootcashflow.usecase.UserUseCase;
 public class UsersView extends VerticalLayout implements BeforeEnterObserver {
 
     public UsersView(UserUseCase userUseCase) {
+        getElement().setAttribute("role", "main");
         setSizeFull();
         setPadding(true);
         setSpacing(false);

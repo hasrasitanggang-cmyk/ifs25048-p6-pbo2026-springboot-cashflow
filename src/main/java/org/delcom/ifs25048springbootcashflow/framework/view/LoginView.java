@@ -28,6 +28,7 @@ import org.delcom.ifs25048springbootcashflow.usecase.AuthUseCase;
 public class LoginView extends VerticalLayout {
 
     public LoginView(AuthUseCase authUseCase, IUserRepository userRepository) {
+        getElement().setAttribute("role", "main");
         if (AuthSession.currentUser(userRepository).isPresent()) {
             UI.getCurrent().navigate(FinanceView.class);
             return;
