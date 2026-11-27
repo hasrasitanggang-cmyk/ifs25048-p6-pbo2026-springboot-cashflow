@@ -12,6 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @StyleSheet("styles.css")
 @PWA(name = "Cashflow", shortName = "Cashflow", iconPath = "icons/icon.png")
 @com.vaadin.flow.component.page.Inline(value = "cashflow-accessibility.js", wrapping = com.vaadin.flow.component.page.Inline.Wrapping.JAVASCRIPT)
+@com.vaadin.flow.component.page.Meta(name = "description", content = "Cashflow adalah aplikasi pencatatan keuangan untuk mengelola pemasukan, pengeluaran, saldo, dan analisis keuangan berbasis AI.")
 public class App implements AppShellConfigurator {
 
     public static void main(String[] args) throws Exception {

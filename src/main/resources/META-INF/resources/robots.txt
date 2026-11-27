@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /$
+Disallow: /profile
+Disallow: /users
+Disallow: /user-transactions
+Allow: /login
+Allow: /register
