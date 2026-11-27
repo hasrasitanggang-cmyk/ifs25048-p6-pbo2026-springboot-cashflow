@@ -70,9 +70,33 @@ public class FinanceView extends VerticalLayout
     private final Span status = new Span();
 
     private record PendingImage(
-            String name,
-            byte[] data
-    ) {}
+        String name,
+        byte[] data
+    ) {
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (!(obj instanceof PendingImage other)) {
+                return false;
+            }
+            return java.util.Objects.equals(name, other.name)
+                && java.util.Arrays.equals(data, other.data);
+        }
+
+        @Override
+        public int hashCode() {
+            return 31 * java.util.Objects.hashCode(name)
+                + java.util.Arrays.hashCode(data);
+        }
+
+        @Override
+        public String toString() {
+            return "PendingImage[name=" + name
+                + ", data=" + java.util.Arrays.toString(data) + "]";
+        }
+    }
 
     public FinanceView(
             FinanceUseCase financeUseCase,
