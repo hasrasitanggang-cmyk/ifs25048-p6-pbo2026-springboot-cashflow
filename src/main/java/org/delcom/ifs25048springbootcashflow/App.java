@@ -11,6 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @StyleSheet(Lumo.STYLESHEET)
 @StyleSheet("styles.css")
 @PWA(name = "Cashflow", shortName = "Cashflow", iconPath = "icons/icon.png")
+@com.vaadin.flow.component.page.Inline(value = "cashflow-accessibility.js", wrapping = com.vaadin.flow.component.page.Inline.Wrapping.JAVASCRIPT)
 public class App implements AppShellConfigurator {
 
     public static void main(String[] args) throws Exception {
